@@ -18,10 +18,15 @@ function setup() {
   
   // Disegna il titolo in alto, centrato sopra i cerchi e i fiumi
   fill(32, 32, 91);  // Colore blu scuro per il titolo
-  textSize(32);  // Imposta la dimensione del titolo
+  textSize(36);  // Imposta la dimensione del titolo
   textStyle(BOLD);  // Imposta il titolo in grassetto
-  text("Rivers in the World", 180, 40);  // Posiziona il titolo in alto a destra (con un margine di 180px dalla sinistra)
-
+  text("All the rivers in the World", 780, 35);  // Posiziona il titolo in alto a destra (con un margine di 180px dalla sinistra)
+  fill(32, 32, 91);  // Colore blu scuro per il titolo
+  textSize(12);  // Imposta la dimensione del titolo
+  text("The length of the lines represents the length of the", 775, 65)
+  fill(32, 32, 91);  // Colore blu scuro per il titolo
+  textSize(12);  // Imposta la dimensione del titolo
+  text("rivers, while their thickness reflects their discharge.", 775, 80)
   let continents = ["Africa", "South America", "Asia", "North America", "Europe", "Australia"];
   continents.forEach(continent => {
     let rivers = table.rows.filter(row => row.get("continent") === continent); // Filtra i fiumi per continente
@@ -30,12 +35,12 @@ function setup() {
 
   // Definisce le posizioni dei cerchi che rappresentano i continenti
   let positions = [
-    { x: 450, y: 250 }, // Posizione per il primo continente (Africa)
-    { x: 1050, y: 250 }, // Posizione per il secondo continente (Sud America)
-    { x: 450, y: 800 }, // Posizione per il terzo continente (Asia)
-    { x: 1050, y: 800 }, // Posizione per il quarto continente (Nord America)
-    { x: 450, y: 1320 }, // Posizione per il quinto continente (Europa)
-    { x: 1050, y: 1320 } // Posizione per il sesto continente (Australia)
+    { x: 450, y: 350 }, // Posizione per il primo continente (Africa)
+    { x: 1050, y: 350 }, // Posizione per il secondo continente (Sud America)
+    { x: 450, y: 850 }, // Posizione per il terzo continente (Asia)
+    { x: 1050, y: 850 }, // Posizione per il quarto continente (Nord America)
+    { x: 450, y: 1350 }, // Posizione per il quinto continente (Europa)
+    { x: 1050, y: 1350 } // Posizione per il sesto continente (Australia)
   ];
 
   // Palette di colori per i cerchi dei continenti
@@ -85,29 +90,29 @@ function setup() {
       strokeWeight(discharge);  // Spessore della linea in base alla portata
       line(x1, y1, x2, y2);  // Linea che rappresenta il fiume
 
-      // Calcolo l'angolo per ruotare il testo del nome del fiume
+      // Calcolo l'angolo per ruotare il testo del nome del fiume e renderlo leggibile correttamnete 
       let riverAngle = atan2(y2 - y1, x2 - x1); // Calcolo l'angolo della linea
       let flipText = angle > 90 && angle < 270; // Se il testo è sulla sinistra
 
-      // Calcolo la posizione per il nome del fiume, che viene posizionato più lontano dal centro
+      // Calcolo la posizione per il nome del fiume
       let riverName = river.get("name");  // Nome del fiume
-      let radius = 55 + length + 10;  // Posiziona il nome a una distanza maggiore dalla circonferenza
-
-      // Calcola le coordinate per il nome del fiume
+      let radius = 55 + length + 10;  // Distanza costante
       let nameX = pos.x + cos(angle) * radius;
       let nameY = pos.y + sin(angle) * radius;
 
-      // Disegna il nome del fiume lungo la linea, ruotando il testo per mantenerlo leggibile
-      push();  // Salva lo stato attuale della matrice di trasformazione
-      translate(nameX, nameY);  // Sposta il sistema di coordinate al punto del nome
-      rotate(riverAngle + (flipText ? 180 : 0));  // Ruota il sistema di coordinate e inverte se necessario
-      noStroke();  // Rimuove il bordo del testo
-      textSize(10);  // Imposta una dimensione più piccola per il testo dei fiumi
-      fill(0);  // Colore del testo (nero)
-      text(riverName, flipText ? -textWidth(riverName) : 0, 10);  // Se invertito, sposta l'origine del testo
-      pop();  // Ripristina lo stato della matrice di trasformazione
+      // Disegna il nome del fiume lungo la linea
+      push();
+      translate(nameX, nameY);
+      rotate(riverAngle + (flipText ? 180 : 0));  // Ruota e inverte se necessario
+      textAlign(CENTER);
+      noStroke();
+      textSize(10);
+      fill(0);
+      text(riverName, 0, 5); // Centra il testo
+      pop();
     }
   }
 }
+
 
 
