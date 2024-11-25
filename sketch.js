@@ -7,7 +7,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1700, 1500);
+  createCanvas(1700, 1600);
   background(57, 90, 150); // Colore di sfondo blu
   angleMode(DEGREES); // Imposta l'angolo in gradi invece che in radianti
   
@@ -49,7 +49,7 @@ function setup() {
     color(123, 66, 168),   // Colore per Sud America
     color(60, 30, 155),   // Colore per Asia
     color(109, 77, 61), // Colore per Nord America
-    color(255, 165, 0), // Colore per Europa
+    color(205, 175, 0), // Colore per Europa
     color(158, 50, 91)  // Colore per Australia
   ];
 
