@@ -71,7 +71,7 @@ function setup() {
     text(`${data.continent}`, pos.x, pos.y - 10); // Posiziona il nome del continente sopra il cerchio
     text(`${rivers.length} rivers`, pos.x, pos.y + 10);  // Mostra il numero di fiumi per continente sotto il cerchio
 
-    // Calcolo e disegno dei fiumi (radiale)
+    // Calcola e disegno dei fiumi (disposizione radiale)
     let angleStep = 360 / rivers.length; // Angolo tra ogni linea di fiume
     for (let j = 0; j < rivers.length; j++) {
       let river = rivers[j]; // Estrarre il fiume corrente
@@ -90,9 +90,9 @@ function setup() {
       strokeWeight(discharge);  // Spessore della linea in base alla portata
       line(x1, y1, x2, y2);  // Linea che rappresenta il fiume
 
-      // Calcolo l'angolo per ruotare il testo del nome del fiume e renderlo leggibile correttamnete 
+      // Calcola l'angolo per ruotare il testo del nome del fiume e renderlo leggibile correttamnete 
       let riverAngle = atan2(y2 - y1, x2 - x1); // Calcolo l'angolo della linea
-      let flipText = angle > 90 && angle < 270; // Se il testo è sulla sinistra
+      let flipText = angle > 90 && angle < 270; // Se il testo è sulla metà sinistra del cerchio 
 
       // Calcolo la posizione per il nome del fiume
       let riverName = river.get("name");  // Nome del fiume
