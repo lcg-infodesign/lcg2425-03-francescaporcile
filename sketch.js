@@ -20,13 +20,13 @@ function setup() {
   fill(32, 32, 91);  // Colore blu scuro per il titolo
   textSize(36);  // Imposta la dimensione del titolo
   textStyle(BOLD);  // Imposta il titolo in grassetto
-  text("All the rivers in the World", 780, 35);  // Posiziona il titolo in alto a destra (con un margine di 180px dalla sinistra)
+  text("Rivers in the World", 780, 35);  // Posiziona il titolo in alto a destra (con un margine di 180px dalla sinistra)
   fill(32, 32, 91);  // Colore blu scuro per il titolo
   textSize(12);  // Imposta la dimensione del titolo
-  text("The length of the lines represents the length of the", 775, 65)
+  text("The length of the lines represents the length of the", 780, 65)
   fill(32, 32, 91);  // Colore blu scuro per il titolo
   textSize(12);  // Imposta la dimensione del titolo
-  text("rivers, while their thickness reflects their discharge.", 775, 80)
+  text("rivers, while their thickness reflects their discharge.", 780, 80)
   let continents = ["Africa", "South America", "Asia", "North America", "Europe", "Australia"];
   continents.forEach(continent => {
     let rivers = table.rows.filter(row => row.get("continent") === continent); // Filtra i fiumi per continente
