@@ -1,4 +1,4 @@
-let table; 
+let table;
 let continentsData = []; // Array per raggruppare i dati dei fiumi per continente
 
 function preload() {
@@ -8,7 +8,7 @@ function preload() {
 
 function setup() {
   createCanvas(1700, 1500);
-  background(57, 90, 150); // Colore di sfondo blu 
+  background(57, 90, 150); // Colore di sfondo blu
   angleMode(DEGREES); // Imposta l'angolo in gradi invece che in radianti
   
   // Imposta il font e la dimensione del testo per i nomi dei continenti e dei fiumi
@@ -21,7 +21,6 @@ function setup() {
   textSize(32);  // Imposta la dimensione del titolo
   textStyle(BOLD);  // Imposta il titolo in grassetto
   text("Rivers in the World", 180, 40);  // Posiziona il titolo in alto a destra (con un margine di 180px dalla sinistra)
-
 
   let continents = ["Africa", "South America", "Asia", "North America", "Europe", "Australia"];
   continents.forEach(continent => {
@@ -39,7 +38,7 @@ function setup() {
     { x: 1050, y: 1320 } // Posizione per il sesto continente (Australia)
   ];
 
-  // palette di colori per i cerchi dei continenti
+  // Palette di colori per i cerchi dei continenti
   let continentColors = [
     color(74, 153, 55),   // Colore per Africa
     color(123, 66, 168),   // Colore per Sud America
@@ -49,10 +48,9 @@ function setup() {
     color(158, 50, 91)  // Colore per Australia
   ];
 
- 
   for (let i = 0; i < continentsData.length; i++) {
-    let data = continentsData[i];  //dati per ogni continente
-    let rivers = data.rivers; // fiumi del continente
+    let data = continentsData[i];  // Dati per ogni continente
+    let rivers = data.rivers; // Fiumi del continente
     let pos = positions[i];  // Posizione del cerchio per il continente
     let continentColor = continentColors[i]; // Colore per il continente specifico
 
@@ -61,10 +59,10 @@ function setup() {
     noStroke();  // Rimuove il bordo del cerchio
     ellipse(pos.x, pos.y, 120, 120);  // Disegna il cerchio (120px di diametro)
 
-    // scivere il nome del continente sopra il cerchio
+    // Scrivere il nome del continente sopra il cerchio
     fill(0);  // Colore del testo
-    textSize(12);  //dimensione del testo per il nome del continente
-    textStyle(BOLD);  // testo in grassetto
+    textSize(12);  // Dimensione del testo per il nome del continente
+    textStyle(BOLD);  // Testo in grassetto
     text(`${data.continent}`, pos.x, pos.y - 10); // Posiziona il nome del continente sopra il cerchio
     text(`${rivers.length} rivers`, pos.x, pos.y + 10);  // Mostra il numero di fiumi per continente sotto il cerchio
 
@@ -78,40 +76,35 @@ function setup() {
       // Calcola l'angolo per posizionare ogni fiume in modo radiale
       let angle = j * angleStep;
       let x1 = pos.x + cos(angle) * 55;  // Calcola la posizione iniziale del fiume
-      let y1 = pos.y + sin(angle) * 50;
-      let x2 = pos.x + cos(angle) * (50 + length); // Calcola la posizione finale del fiume
-      let y2 = pos.y + sin(angle) * (50 + length);
+      let y1 = pos.y + sin(angle) * 55;
+      let x2 = pos.x + cos(angle) * (55 + length); // Calcola la posizione finale del fiume
+      let y2 = pos.y + sin(angle) * (55 + length);
 
       // Disegnare il fiume come una linea, con il colore e spessore calcolato in base ai dati
       stroke(56, 150, 160);  // Colore del fiume
-      strokeWeight(discharge);  //spessore della linea in base alla portata
-      line(x1, y1, x2, y2);  // linea che rappresenta il fiume
+      strokeWeight(discharge);  // Spessore della linea in base alla portata
+      line(x1, y1, x2, y2);  // Linea che rappresenta il fiume
 
       // Calcolo l'angolo per ruotare il testo del nome del fiume
       let riverAngle = atan2(y2 - y1, x2 - x1); // Calcolo l'angolo della linea
+      let flipText = angle > 90 && angle < 270; // Se il testo è sulla sinistra
 
       // Calcolo la posizione per il nome del fiume, che viene posizionato più lontano dal centro
-      let riverName = river.get("name");  //nome del fiume
-      let nameLength = textWidth(riverName);  //larghezza del nome per posizionarlo correttamente
-      let radius = 50 + length + 30;  // Posiziona il nome a una distanza maggiore dalla circonferenza
+      let riverName = river.get("name");  // Nome del fiume
+      let radius = 55 + length + 10;  // Posiziona il nome a una distanza maggiore dalla circonferenza
 
       // Calcola le coordinate per il nome del fiume
       let nameX = pos.x + cos(angle) * radius;
       let nameY = pos.y + sin(angle) * radius;
 
-      // Se l'angolo è maggiore di 180° (seconda metà del cerchio), sposta il nome del fiume verso il basso
-      if (angle > 180) {
-        nameY += 5;  // Sposta il nome del fiume verso il basso
-      }
-
-      // Disegna il nome del fiume lungo la linea, ruotando il testo per mantenere l'orientamento corretto
+      // Disegna il nome del fiume lungo la linea, ruotando il testo per mantenerlo leggibile
       push();  // Salva lo stato attuale della matrice di trasformazione
       translate(nameX, nameY);  // Sposta il sistema di coordinate al punto del nome
-      rotate(riverAngle);  // Ruota il sistema di coordinate in base all'angolo del fiume
+      rotate(riverAngle + (flipText ? 180 : 0));  // Ruota il sistema di coordinate e inverte se necessario
       noStroke();  // Rimuove il bordo del testo
       textSize(10);  // Imposta una dimensione più piccola per il testo dei fiumi
       fill(0);  // Colore del testo (nero)
-      text(riverName, 2, 10);  // Disegna il nome del fiume
+      text(riverName, flipText ? -textWidth(riverName) : 0, 10);  // Se invertito, sposta l'origine del testo
       pop();  // Ripristina lo stato della matrice di trasformazione
     }
   }
